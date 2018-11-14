@@ -32,14 +32,14 @@ sub list_nodes {
   my $self   = shift;
   my $active = $self->param('active');
 
-  my $sth = $self->db->prepare('SELECT id FROM nodes WHERE is_active=?');
+  my $sth = $self->db->prepare('SELECT id, RTRIM(name), comment FROM nodes WHERE is_active=?');
   $sth->execute($active);
-  my $ids = [];
+  my $nodes = [];
   while( my @r = $sth->fetchrow_array()){
-    push @$ids, $r[0];
+    push @$nodes, [@r];
   }
 
-  return $self->render(json => {status => "ok", data => $ids});
+  return $self->render(json => {status => "ok", data => $nodes});
 }
 
 sub add_node {
@@ -107,10 +107,23 @@ sub group_add_node {
   my $node_id = $self->param('node_id');
   my $group_id = $self->param('group_id');
 
-  my $self->db->prepare('INSERT INTO node_group (node_id, group_id) VALUES(?, ?)');
+  my $sth = $self->db->prepare('INSERT INTO node_group (node_id, group_id) VALUES(?, ?)');
   $sth->execute($node_id, $group_id);
 
   return $self->render(json => {status => 'ok'});
+}
+
+sub list_groups {
+  my $self   = shift;
+
+  my $sth = $self->db->prepare('SELECT id, RTRIM(name), comment FROM groups');
+  $sth->execute();
+  my $groups = [];
+  while( my @r = $sth->fetchrow_array()){
+    push @$groups, [@r];
+  }
+
+  return $self->render(json => {status => "ok", data => $groups});
 }
 
 sub del_group {
@@ -126,6 +139,34 @@ sub del_group {
   my $groups_affected = $sth->fetch()->[0];
 
   return $self->render(json => {status => 'ok', nodes_affected => $nodes_affected, groups_affected => $groups_affected});
+}
+
+sub list_groups_of_node {
+  my $self = shift;
+  my $node_id = $self->param('node_id');
+
+  my $sth = $self->db->prepare("SELECT g.id, RTRIM(g.name), g.comment FROM groups g INNER JOIN node_group ng ON g.id=ng.group_id WHERE ng.node_id=?");
+  $sth->execute($node_id);
+  my $groups = [];
+  while( my $group = $sth->fetchrow_arrayref() ){
+    push @$groups, $group;
+  }
+
+  return $self->render(json => {status => 'ok', groups => $groups});
+}
+
+sub list_nodes_in_group {
+  my $self = shift;
+  my $group_id = $self->param('group_id');
+
+  my $sth = $self->db->prepare("SELECT n.id, RTRIM(n.name), n.comment FROM nodes n INNER JOIN node_group ng ON n.id=ng.node_id WHERE ng.group_id=?");
+  $sth->execute($group_id);
+  my $nodes = [];
+  while( my $node = $sth->fetchrow_arrayref() ){
+    push @$nodes, $node;
+  }
+
+  return $self->render(json => {status => 'ok', nodes => $nodes});
 }
 
 1;

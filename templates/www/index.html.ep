@@ -7,15 +7,15 @@
       // for each document get it's config
       jQuery(data.data).each(function(index){
         var nid = data.data[index];
-        jQuery.getJSON('/index.cgi/api/1/node/config/get', {"id": nid}, function(j){
-          jQuery('#nodes').append(
-            '<tr>' + \
-              '<td>' + nid + '</td>' + \
-              '<td>' + j.data + '</td>' + \
-              '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid + '&state=off">switch off</a></td>' + \
-            '</tr>'
-          );
-        });
+        jQuery('#nodes').append(
+          '<tr>' + \
+            '<td>' + nid[0] + '</td>' + \
+            '<td>' + nid[1] + '</td>' + \
+            '<td>' + nid[2] + '</td>' + \
+            '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid[0] + '&state=off">Switch off</a></td>' + \
+            '<td><a href="/index.cgi/api/1/group/list_groups?node_id=' + nid[0] + '">List groups</a></td>' + \
+          '</tr>'
+        );
       });
     });
 
@@ -23,15 +23,29 @@
       // for each document get it's config
       jQuery(data.data).each(function(index){
         var nid = data.data[index];
-        jQuery.getJSON('/index.cgi/api/1/node/config/get', {"id": nid}, function(j){
-          jQuery('#offnodes').append(
-            '<tr>' + \
-              '<td>' + nid + '</td>' + \
-              '<td>' + j.data + '</td>' + \
-              '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid + '&state=on">switch on</a></td>' + \
-            '</tr>'
-          );
-        });
+        jQuery('#offnodes').append(
+          '<tr>' + \
+            '<td>' + nid[0] + '</td>' + \
+            '<td>' + nid[1] + '</td>' + \
+            '<td>' + nid[2] + '</td>' + \
+            '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid[0] + '&state=on">Switch on</a></td>' + \
+          '</tr>'
+        );
+      });
+    });
+
+    jQuery.getJSON('/index.cgi/api/1/group/list', function(data){
+      // for each document get it's config
+      jQuery(data.data).each(function(index){
+        var nid = data.data[index];
+        jQuery('#groups').append(
+          '<tr>' + \
+            '<td>' + nid[0] + '</td>' + \
+            '<td>' + nid[1] + '</td>' + \
+            '<td>' + nid[2] + '</td>' + \
+            '<td><a href="/index.cgi/api/1/group/list_nodes?group_id=' + nid[0] + '">Nodes in group</a></td>' + \
+          '</tr>'
+        );
       });
     });
   });
@@ -46,6 +60,12 @@
 <p>
   <h4>Inactive nodes:</h4>
   <table id='offnodes'>
+  </table>
+</p>
+
+<p>
+  <h4>Groups:</h4>
+  <table id='groups'>
   </table>
 </p>
 

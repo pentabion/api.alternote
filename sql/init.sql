@@ -1,7 +1,7 @@
 create table nodes {
   id bigint not null primary key,
-  registered datetime,
-  name varchar(255),
+  name char(30),
+  comment varchar(255),
   is_active boolean not null,
   config text
 }

@@ -43,8 +43,11 @@ sub startup {
 
   $r->get('/api/1/group/add')->to('api#add_group');
   $r->get('/api/1/group/del')->to('api#del_group');
+  $r->get('/api/1/group/list')->to('api#list_groups');
   $r->get('/api/1/group/node/add')->to('api#group_add_node');
   $r->get('/api/1/group/node/del')->to('api#group_del_node');
+  $r->get('/api/1/group/list_nodes')->to('api#list_nodes_in_group');
+  $r->get('/api/1/group/list_groups')->to('api#list_groups_of_node');
 }
 
 1;
