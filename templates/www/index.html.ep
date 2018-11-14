@@ -1,0 +1,59 @@
+% layout 'default';
+% title 'Index';
+
+<script>
+  $( document ).ready(function(){
+    jQuery.getJSON('/index.cgi/api/1/node/list_active', function(data){
+      // for each document get it's config
+      jQuery(data.data).each(function(index){
+        var nid = data.data[index];
+        jQuery.getJSON('/index.cgi/api/1/node/config/get', {"id": nid}, function(j){
+          jQuery('#nodes').append(
+            '<tr>' + \
+              '<td>' + nid + '</td>' + \
+              '<td>' + j.data + '</td>' + \
+              '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid + '&state=off">switch off</a></td>' + \
+            '</tr>'
+          );
+        });
+      });
+    });
+
+    jQuery.getJSON('/index.cgi/api/1/node/list_inactive', function(data){
+      // for each document get it's config
+      jQuery(data.data).each(function(index){
+        var nid = data.data[index];
+        jQuery.getJSON('/index.cgi/api/1/node/config/get', {"id": nid}, function(j){
+          jQuery('#offnodes').append(
+            '<tr>' + \
+              '<td>' + nid + '</td>' + \
+              '<td>' + j.data + '</td>' + \
+              '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid + '&state=on">switch on</a></td>' + \
+            '</tr>'
+          );
+        });
+      });
+    });
+  });
+</script>
+
+<p>
+  <h4>Active nodes:</h4>
+  <table id='nodes'>
+  </table>
+</p>
+
+<p>
+  <h4>Inactive nodes:</h4>
+  <table id='offnodes'>
+  </table>
+</p>
+
+<hr/>
+<h5>Set node config</h5>
+<form action='/index.cgi/api/1/node/config/set' method='POST'>
+  <input type='text' name='id'/>
+  <input type='textarea' rows=4 columns=30 name='config'/>
+
+  <input type='submit' />
+</form>

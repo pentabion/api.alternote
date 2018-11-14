@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/index.cgi/js/jquery.js" lang='javascript'></script>
+    <title><%= title %></title>
+  </head>
+  <body><%= content %></body>
+</html>
