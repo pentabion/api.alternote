@@ -1,19 +1,17 @@
 input {
   display: block;
-  margin: 10px 3px;
+  margin: 3px 3px 10px 5px;
 }
 
 textarea#json {
     margin: 3px;
     height: 20em;
-    width: 25em;
+    width: 95%;
 }
 
 form {
     margin: 3px;
-    border: solid 1px lightgray;
     padding: 10px;
-    background-color: #f3f3f3;
 }
 
 div.module {
@@ -21,6 +19,11 @@ div.module {
     border: solid grey 1px;
     padding: 5px 10px;
     background-color: aliceblue;
+}
+
+div.module.thin {
+    width: 30%;
+    display: inline-table;
 }
 
 div.module h4 {
@@ -41,3 +44,8 @@ table td {
 
 table>tr:nth-child(even) {background: #eff5f7}
 table>tr:nth-child(odd) {background: #ffffff}
+
+label {
+  color: grey;
+  font-size: small;
+}

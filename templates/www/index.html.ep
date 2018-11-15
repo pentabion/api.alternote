@@ -71,11 +71,24 @@
   </table>
 </div>
 
-<hr/>
-<h5>Set node config</h5>
-<form action='/index.pl/api/1/node/config/set' method='POST'>
-  <input type='text' name='id'/>
-  <textarea id='json' type='textarea' rows=4 columns=30 name='config'></textarea>
+<div class='module thin'>
+  <h4>Set node config</h5>
+  <form action='/index.pl/api/1/node/config/set' method='POST'>
+    <input type='text' name='id'/>
+    <textarea id='json' type='textarea' rows=4 columns=30 name='config'></textarea>
+  
+    <input type='submit' />
+  </form>
+</div>
 
-  <input type='submit' />
-</form>
+<div class='module thin'>
+  <h4>Add node to group</h5>
+  <form action='/index.pl/api/1/group/node/add' method='GET'>
+    <label for="node_id">Node ID</label>
+    <input type='text' name='node_id'/>
+    <label for="group_id">Group ID</label>
+    <input type='text' name='group_id'/>
+  
+    <input type='submit' />
+  </form>
+</div>
