@@ -32,7 +32,7 @@ sub list_nodes {
   my $self   = shift;
   my $active = $self->param('active');
 
-  my $sth = $self->db->prepare('SELECT id, RTRIM(name), comment FROM nodes WHERE is_active=?');
+  my $sth = $self->db->prepare('SELECT id, RTRIM(name), comment, config FROM nodes WHERE is_active=?');
   $sth->execute($active);
   my $nodes = [];
   while( my @r = $sth->fetchrow_array()){

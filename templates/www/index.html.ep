@@ -3,7 +3,7 @@
 
 <script>
   $( document ).ready(function(){
-    jQuery.getJSON('/index.cgi/api/1/node/list_active', function(data){
+    jQuery.getJSON('/index.pl/api/1/node/list_active', function(data){
       // for each document get it's config
       jQuery(data.data).each(function(index){
         var nid = data.data[index];
@@ -12,14 +12,15 @@
             '<td>' + nid[0] + '</td>' + \
             '<td>' + nid[1] + '</td>' + \
             '<td>' + nid[2] + '</td>' + \
-            '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid[0] + '&state=off">Switch off</a></td>' + \
-            '<td><a href="/index.cgi/api/1/group/list_groups?node_id=' + nid[0] + '">List groups</a></td>' + \
+            '<td>' + nid[3] + '</td>' + \
+            '<td><a href="/index.pl/api/1/node/state/set?id=' + nid[0] + '&state=off">Switch off</a></td>' + \
+            '<td><a href="/index.pl/api/1/group/list_groups?node_id=' + nid[0] + '">List groups</a></td>' + \
           '</tr>'
         );
       });
     });
 
-    jQuery.getJSON('/index.cgi/api/1/node/list_inactive', function(data){
+    jQuery.getJSON('/index.pl/api/1/node/list_inactive', function(data){
       // for each document get it's config
       jQuery(data.data).each(function(index){
         var nid = data.data[index];
@@ -28,13 +29,14 @@
             '<td>' + nid[0] + '</td>' + \
             '<td>' + nid[1] + '</td>' + \
             '<td>' + nid[2] + '</td>' + \
-            '<td><a href="/index.cgi/api/1/node/state/set?id=' + nid[0] + '&state=on">Switch on</a></td>' + \
+            '<td>' + nid[3] + '</td>' + \
+            '<td><a href="/index.pl/api/1/node/state/set?id=' + nid[0] + '&state=on">Switch on</a></td>' + \
           '</tr>'
         );
       });
     });
 
-    jQuery.getJSON('/index.cgi/api/1/group/list', function(data){
+    jQuery.getJSON('/index.pl/api/1/group/list', function(data){
       // for each document get it's config
       jQuery(data.data).each(function(index){
         var nid = data.data[index];
@@ -43,7 +45,7 @@
             '<td>' + nid[0] + '</td>' + \
             '<td>' + nid[1] + '</td>' + \
             '<td>' + nid[2] + '</td>' + \
-            '<td><a href="/index.cgi/api/1/group/list_nodes?group_id=' + nid[0] + '">Nodes in group</a></td>' + \
+            '<td><a href="/index.pl/api/1/group/list_nodes?group_id=' + nid[0] + '">Nodes in group</a></td>' + \
           '</tr>'
         );
       });
@@ -51,29 +53,29 @@
   });
 </script>
 
-<p>
+<div class='module'>
   <h4>Active nodes:</h4>
   <table id='nodes'>
   </table>
-</p>
+</div>
 
-<p>
+<div class='module'>
   <h4>Inactive nodes:</h4>
   <table id='offnodes'>
   </table>
-</p>
+</div>
 
-<p>
+<div class='module'>
   <h4>Groups:</h4>
   <table id='groups'>
   </table>
-</p>
+</div>
 
 <hr/>
 <h5>Set node config</h5>
-<form action='/index.cgi/api/1/node/config/set' method='POST'>
+<form action='/index.pl/api/1/node/config/set' method='POST'>
   <input type='text' name='id'/>
-  <input type='textarea' rows=4 columns=30 name='config'/>
+  <textarea id='json' type='textarea' rows=4 columns=30 name='config'></textarea>
 
   <input type='submit' />
 </form>

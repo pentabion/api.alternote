@@ -1,0 +1,43 @@
+input {
+  display: block;
+  margin: 10px 3px;
+}
+
+textarea#json {
+    margin: 3px;
+    height: 20em;
+    width: 25em;
+}
+
+form {
+    margin: 3px;
+    border: solid 1px lightgray;
+    padding: 10px;
+    background-color: #f3f3f3;
+}
+
+div.module {
+    margin: 5px;
+    border: solid grey 1px;
+    padding: 5px 10px;
+    background-color: aliceblue;
+}
+
+div.module h4 {
+    margin: 5px;
+    color: darkolivegreen;
+}
+
+table {
+    background: white;
+    padding: 3px;
+    border-radius: 3px;
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 5px;
+}
+
+table>tr:nth-child(even) {background: #eff5f7}
+table>tr:nth-child(odd) {background: #ffffff}
