@@ -88,7 +88,7 @@ sub get_node_state {
   my @row = $sth->fetchrow_array();
   return $self->render({status => 'fail', ecode => 3, emsg => "No such node [$id]"}) unless @row;
 
-  return $self->render(json => {status => 'ok', state => $row[0]});
+  return $self->render(json => {status => 'ok', data => $row[0]});
 }
 
 sub add_group {
@@ -138,7 +138,7 @@ sub del_group {
   $sth->execute($id);
   my $groups_affected = $sth->fetch()->[0];
 
-  return $self->render(json => {status => 'ok', nodes_affected => $nodes_affected, groups_affected => $groups_affected});
+  return $self->render(json => {status => 'ok', data => {nodes_affected => $nodes_affected, groups_affected => $groups_affected}});
 }
 
 sub list_groups_of_node {
@@ -152,7 +152,7 @@ sub list_groups_of_node {
     push @$groups, $group;
   }
 
-  return $self->render(json => {status => 'ok', groups => $groups});
+  return $self->render(json => {status => 'ok', data => $groups});
 }
 
 sub list_nodes_in_group {
@@ -166,7 +166,7 @@ sub list_nodes_in_group {
     push @$nodes, $node;
   }
 
-  return $self->render(json => {status => 'ok', nodes => $nodes});
+  return $self->render(json => {status => 'ok', data => $nodes});
 }
 
 1;
