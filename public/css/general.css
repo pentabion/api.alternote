@@ -5,7 +5,7 @@ input {
 
 textarea#json {
     margin: 3px;
-    height: 20em;
+    height: 14em;
     width: 95%;
 }
 
@@ -23,6 +23,7 @@ div.module {
 
 div.module.thin {
     width: 30%;
+    height: 20em;
     display: inline-table;
 }
 

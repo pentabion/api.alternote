@@ -11,10 +11,10 @@ sub startup {
   my $config = $self->plugin('Config');
 
   $self->plugin('database', {
-      dsn      => "dbi:Pg:dbname=$config->{db}->{database};host=$config->{db}->{hostname}",
+      dsn      => "dbi:mysql:dbname=$config->{db}->{database}",
       username => $config->{db}->{username},
       password => $config->{db}->{password},
-      options  => { 'pg_enable_utf8' => 1, AutoCommit => 1 },
+      options  => { AutoCommit => 1 },
       helper   => 'db',
       });
 

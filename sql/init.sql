@@ -1,10 +1,27 @@
-create table nodes {
-  id bigint not null primary key,
-  name char(30),
-  comment varchar(255),
-  is_active boolean not null,
-  config text
-}
+DROP TABLE IF EXISTS `nodes`;
+CREATE TABLE `nodes` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` CHAR(30) NOT NULL,
+  `comment` VARCHAR(255) DEFAULT NULL,
+  `is_active` TINYINT NOT NULL DEFAULT 0,
+  `config` text
+) ENGINE=MyISAM;
+
+DROP TABLE `groups`;
+CREATE TABLE `groups` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` CHAR(30) NOT NULL,
+  `comment` VARCHAR(255) DEFAULT NULL
+) ENGINE=MyISAM;
+
+DROP TABLE `node_group`;
+CREATE TABLE `node_group` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `node_id` INT UNSIGNED NOT NULL,
+  `group_id` INT UNSIGNED NOT NULL
+) ENGINE=MyISAM;
+
+/*
 
 create table statuses {
   id tinyint,
@@ -30,15 +47,4 @@ create table job_history {
   datetime,
   was_status
 }
-
-create table groups {
-  id long primary key,
-  name char(30),
-  comment varchar(255)
-}
-
-create table node_group {
-  id long primary key,
-  node_id,
-  group_id
-}
+*/

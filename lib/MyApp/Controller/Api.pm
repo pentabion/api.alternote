@@ -43,11 +43,12 @@ sub list_nodes {
 }
 
 sub add_node {
-  my $self = shift;
-  my $id = $self->param('id');
+  my $self    = shift;
+  my $name    = $self->param('name');
+  my $comment = $self->param('comment');
 
-  my $sth = $self->db->prepare("INSERT INTO nodes (id, is_active) VALUES (?, True)");
-  $sth->execute($id);
+  my $sth = $self->db->prepare("INSERT INTO nodes (is_active, name, comment) VALUES (True, ?, ?)");
+  $sth->execute($name, $comment);
   
   return $self->render(json => {status => "ok"});
 }
@@ -56,7 +57,10 @@ sub remove_node {
   my $self = shift;
   my $id   = $self->param('id');
 
-  my $sth = $self->db->prepare("DELETE FROM nodes WHERE id=?");
+  my $sth = $self->db->prepare("DELETE FROM node_group WHERE node_id=?");
+  $sth->execute($id);
+
+  $sth = $self->db->prepare("DELETE FROM nodes WHERE id=?");
   $sth->execute($id);
   
   return $self->render(json => {status => "ok"});
